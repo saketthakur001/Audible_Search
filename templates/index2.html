@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Audiobooks</title>
+</head>
+<body>
+    <h1>Audiobooks</h1>
+    <!-- Creating a form for the search bar and the filters -->
+    <form method="get" action="/">
+        <!-- Creating a div for the search bar -->
+        <div>
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" value="{{ search }}">
+        </div>
+        <!-- Creating a div for the sort by option -->
+        <div>
+            <label for="sort_by">Sort by:</label>
+            <select id="sort_by" name="sort_by">
+                <option value="">Select</option>
+                <option value="title" {% if sort_by == 'title' %}selected{% endif %}>Title</option>
+                <option value="author" {% if sort_by == 'author' %}selected{% endif %}>Author</option>
+                <option value="narrator" {% if sort_by == 'narrator' %}selected{% endif %}>Narrator</option>
+                <option value="series" {% if sort_by == 'series' %}selected{% endif %}>Series</option>
+                <option value="language" {% if sort_by == 'language' %}selected{% endif %}>Language</option>
+                <option value="length" {% if sort_by == 'length' %}selected{% endif %}>Length</option>
+                <option value="release_date" {% if sort_by == 'release_date' %}selected{% endif %}>Release date</option>
+                <option value="rating" {% if sort_by == 'rating' %}selected{% endif %}>Rating</option>
+                <option value="votes" {% if sort_by == 'votes' %}selected{% endif %}>Votes</option>
+            </select>
+        </div>
+        <!-- Creating a div for the filters -->
+        <div>
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" value="{{ author }}">
+            <label for="narrator">Narrator:</label>
+            <input type="text" id="narrator" name="narrator" value="{{ narrator }}">
+            <label for="series">Series:</label>
+            <input type="text" id="series" name="series" value="{{ series }}">
+            <label for="language">Language:</label>
+            <input type="text" id="language" name="language" value="{{ language }}">
+            <label for="min_length">Min length:</label>
+            <input type="number" id="min_length" name="min_length" value="{{ min_length }}">
+            <label for="min_rating">Min rating:</label>
+            <input type="number" id="min_rating" name="min_rating" value="{{ min_rating }}">
+            <label for="min_votes">Min votes:</label>
+            <input type="number" id="min_votes" name="min_votes" value="{{ min_votes }}">
+        </div>
+        <!-- Creating a submit button -->
+        <div>
+            <button type="submit">Search</button>
+        </div>        
+    </form>
+
+    <!-- Creating a table for the data -->
+    <table border=1 cellspacing=0 cellpadding=5 width=100% align=center style='table-layout:fixed'>
+        <!-- Creating a header row -->
+        <tr style='background-color:lightblue'>
+            <th>Image</th>            
+            <th>Release date</th>            
+            <th>Rating</th>            
+            <th>Votes</th>            
+        </tr>
+
+        <!-- Looping through the data and creating a row for each item -->
+        {% for item in data %}
+        <!-- Creating a row with four cells -->
+        <tr style='background-color:lightgreen'>
+            <!-- Creating a cell with an image tag and a hidden div that shows the other details on hover -->
+            <!-- The image tag has the src attribute as the image_url and the alt attribute as the title -->
+            <!-- The hidden div has the class attribute as "details" and contains the title, subtitle, author, narrator, series, language and length -->
+            <!-- The hidden div is styled with CSS to show up on hover -->
+            <!-- The link tag has the href attribute as the link and wraps around the image tag and the hidden div -->
+            <td>
+                <a href="{{ item['link'] }}">
+                    <img src="{{ item['image_url'] }}" alt="{{ item['title'] }}" width=100 height=100>
+                    <div class="details">
+                        <p><strong>Title:</strong> {{ item['title'] }}</p>
+                        <p><strong>Subtitle:</strong> {{ item['subtitle'] }}</p>
+                        <p><strong>Author:</strong> {{ item['author'] }}</p>
+                        <p><strong>Narrator:</strong> {{ item['narrator'] }}</p>
+                        <p><strong>Series:</strong> {{ item['series'] }}</p>
+                        <p><strong>Language:</strong> {{ item['language'] }}</p>
+                        <p><strong>Length:</strong> {{ item['length'] }} minutes</p>
+                    </div>
+                </a>
+            </td>
+            <!-- Creating a cell with the year -->
+            <td>{{ item['year'] }}</td>
+            <!-- Creating a cell with the rating -->
+            <td>{{ item['rating'] }}</td>
+            <!-- Creating a cell with the votes -->
+            <td>{{ item['votes'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Creating a div for the pagination -->
+    <div>
+        <!-- Creating a link for the previous page if the page is not 1 -->
+        {% if page > 1 %}
+        <a href="/?search={{ search }}&sort_by={{ sort_by }}&author={{ author }}&narrator={{ narrator }}&series={{ series }}&language={{ language }}&min_length={{ min_length }}&min_rating={{ min_rating }}&min_votes={{ min_votes }}&page={{ page-1 }}&per_page={{ per_page }}">Previous</a>
+        {% endif %}
+        <!-- Creating a link for the next page if there are more items in the dataframe -->
+        {% if (page*per_page) < df.shape[0] %}
+        <a href="/?search={{ search }}&sort_by={{ sort_by }}&author={{ author }}&narrator={{ narrator }}&series={{ series }}&language={{ language }}&min_length={{ min_length }}&min_rating={{ min_rating }}&min_votes={{ min_votes }}&page={{ page+1 }}&per_page={{ per_page }}">Next</a>
+        {% endif %}
+        <!-- Creating an input box for the per_page parameter -->
+        <label for="per_page">Results per page:</label>
+        <input type="number" id="per_page" name="per_page" value="{{ per_page }}" onchange="window.location.href='/?search='+document.getElementById('search').value+'&sort_by='+document.getElementById('sort_by').value+'&author='+document.getElementById('author').value+'&narrator='+document.getElementById('narrator').value+'&series='+document.getElementById('series').value+'&language='+document.getElementById('language').value+'&min_length='+document.getElementById('min_length').value+'&min_rating='+document.getElementById('min_rating').value+'&min_votes='+document.getElementById('min_votes').value+'&page=1'+'&per_page='+this.value">
+    </div>
+    <!-- Adding some CSS to style the webpage -->
+    <style>
+        /* Styling the image tag to have a border and some margin */
+        img {
+            border: 2px solid black;
+            margin: 5px;
+        }
+
+        /* Styling the hidden div to have a white background, black border, some padding and absolute position */
+        .details {
+            background-color: white;
+            border: 2px solid black;
+            padding: 10px;
+            position: absolute;
+            display: none;
+        }
+
+        /* Styling the hidden div to show up on hover */
+        td:hover .details {
+            display: block;
+        }
+    </style>
+    <!-- Creating a div for the view option -->
+<div>
+    <label for="view">View:</label>
+    <select id="view" name="view" onchange="changeView(this.value)">
+        <option value="list" selected>List</option>
+        <option value="grid">Grid</option>
+    </select>
+</div>
+
+<!-- Adding some JavaScript to change the view based on the option -->
+<script>
+    // Defining a function that takes the value of the view option as a parameter
+    function changeView(value) {
+        // Getting the table element by its tag name
+        var table = document.getElementsByTagName("table")[0];
+        // Checking if the value is "list"
+        if (value == "list") {
+            // Setting the display style of the table to block
+            table.style.display = "block";
+        }
+        // Checking if the value is "grid"
+        else if (value == "grid") {
+            // Setting the display style of the table to grid
+            table.style.display = "grid";
+            // Setting the grid template columns to repeat four times with auto width
+            table.style.gridTemplateColumns = "repeat(4, auto)";
+        }
+    }
+</script>
+
+<!-- Adding some CSS to style the grid view -->
+<style>
+    /* Styling the table cells to have some margin and padding in grid view */
+    td {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    /* Styling the image tag to have a fixed width and height in grid view */
+    img {
+        width: 200px;
+        height: 200px;
+    }
+
+    /* Styling the hidden div to have a relative position and a smaller font size in grid view */
+    .details {
+        position: relative;
+        font-size: 12px;
+    }
+</style>
+<!-- Creating a div for the view option -->
+<div>
+    <label for="view">View:</label>
+    <select id="view" name="view" onchange="changeView(this.value)">
+        <option value="grid" selected>Grid</option>
+        <option value="list">List</option>
+    </select>
+</div>
+
+<!-- Adding some JavaScript to change the view based on the option -->
+<script>
+    // Defining a function that takes the value of the view option as a parameter
+    function changeView(value) {
+        // Getting the table element by its tag name
+        var table = document.getElementsByTagName("table")[0];
+        // Checking if the value is "grid"
+        if (value == "grid") {
+            // Setting the display style of the table to grid
+            table.style.display = "grid";
+            // Setting the grid template columns to repeat four times with auto width
+            table.style.gridTemplateColumns = "repeat(4, auto)";
+        }
+        // Checking if the value is "list"
+        else if (value == "list") {
+            // Setting the display style of the table to block
+            table.style.display = "block";
+        }
+    }
+</script>
+
+<!-- Adding some CSS to style the grid view -->
+<style>
+    /* Styling the table to have a grid display by default */
+    table {
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+    }
+
+    /* Styling the table cells to have some margin and padding in grid view */
+    td {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    /* Styling the image tag to have a fixed width and height in grid view */
+    img {
+        width: 200px;
+        height: 200px;
+    }
+
+    /* Styling the hidden div to have a relative position and a smaller font size in grid view */
+    .details {
+        position: relative;
+        font-size: 12px;
+    }
+</style>
+
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Audiobooks</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Creating a header element for the title -->
+    <header>
+        <h1>Audible</h1>
+    </header>
+    <!-- Creating a nav element for the form -->
+    <!-- <nav> -->
+        <!-- Creating a div element with a class name of 'filter-box' -->
+        <div class='filter-box'>
+            <!-- Creating a form for the search bar and the filters -->
+            <form method="get" action="/">
+                <!-- Creating a div with the class form-group for the search bar -->
+                <div class="form-group">
+                    <!-- Adding a placeholder attribute to the input element -->
+                    <input type="text" id="search" name="search" value="{{ search|default('', true) }}" placeholder="Search">
+                </div>
+                <!-- Creating a div with the class form-group for the filters -->
+                <div class="form-group">
+                    <!-- Removing the label element and adding a placeholder attribute to the input element -->
+                    <input type="text" id="author" name="author" value="{{ author|default('', true) }}" placeholder="Author">
+                    <!-- Removing the label element and adding a placeholder attribute to the input element -->
+                    <input type="text" id="narrator" name="narrator" value="{{ narrator|default('', true) }}" placeholder="Narrator">
+                    <!-- Removing the label element and adding a placeholder attribute to the input element -->
+                    <input type="text" id="series" name="series" value="{{ series|default('', true) }}" placeholder="Series">
+                    <!-- Removing the label element and adding a placeholder attribute to the input element -->
+                    <input type="text" id="language" name="language" value="{{ language|default('', true) }}" placeholder="Language">
+                    <!-- Removing the label element and adding a placeholder attribute to the input element -->
+                    <input type="number" id="min_length" name="min_length" value="{{ min_length|default(0, true) }}" placeholder="Min length">
+                    <!-- Removing the label element and adding a placeholder attribute to the input element -->
+                    <input type="number" id="min_rating" name="min_rating" value="{{ min_rating|default(0, true) }}" placeholder="Min rating">
+                    <!-- Removing the label element and adding a placeholder attribute to the input element -->
+                    <input type="number" id="min_votes" name="min_votes" value="{{ min_votes|default(0, true) }}" placeholder="Min votes">
+                </div>
+                <!-- Creating a div with the class form-group for the submit button -->
+                <div class="form-group">
+                    <button type="submit">Search</button>
+                </div>        
+            </form>        
+        </div>
+
+    <!-- </nav> -->
+
+<!-- Creating a section element for the sort option -->
+<!-- <section class='sort-option'>
+  <label for='sort_by'>Sort by:</label>
+  <select name='sort_by' onchange='window.location.href="/?search="+document.getElementById("search").value+"&author="+document.getElementById("author").value+"&narrator="+document.getElementById("narrator").value+"&series="+document.getElementById("series").value+"&language="+document.getElementById("language").value+"&min_length="+document.getElementById("min_length").value+"&min_rating="+document.getElementById("min_rating").value+"&min_votes="+document.getElementById("min_votes").value+"&page=1&per_page="+document.getElementById("per_page").value+"&sort_by="+this.value'>
+    <option value=''>Select</option>
+    <option value='title' {{ 'selected' if sort_by == 'title' }}>Title</option>
+    <option value='author' {{ 'selected' if sort_by == 'author' }}>Author</option>
+    <option value='narrator' {{ 'selected' if sort_by == 'narrator' }}>Narrator</option>
+    <option value='series' {{ 'selected' if sort_by == 'series' }}>Series</option>
+    <option value='language' {{ 'selected' if sort_by == 'language' }}>Language</option>
+    <option value='length' {{ 'selected' if sort_by == 'length' }}>Length</option>
+    <option value='rating' {{ 'selected' if sort_by == 'rating' }}>Rating</option>
+    <option value='votes' {{ 'selected' if sort_by == 'votes' }}>Votes</option>
+  </select>
+</section>
+ -->
+<!-- Creating a section element for the sort option -->
+<section class="sort-option">
+  <label for="sort_by">Sort by:</label>
+
+  <!-- Adding an onchange event handler that reloads the page with the selected sort_by and sort_order parameters -->
+  <select name="sort_by" onchange="window.location.href='/?search=' + document.getElementById('search').value + '&author=' + document.getElementById('author').value + '&narrator=' + document.getElementById('narrator').value + '&series=' + document.getElementById('series').value + '&language=' + document.getElementById('language').value + '&min_length=' + document.getElementById('min_length').value + '&min_rating=' + document.getElementById('min_rating').value + '&min_votes=' + document.getElementById('min_votes').value + '&page=1&per_page=' + document.getElementById('per_page').value + '&sort_by=' + this.value + '&sort_order=' + document.getElementById('sort_order').value">
+    <option value="">Select</option>
+    <option value="title" {{ 'selected' if sort_by == 'title' }}>Title</option>
+    <option value="author" {{ 'selected' if sort_by == 'author' }}>Author</option>
+    <option value="narrator" {{ 'selected' if sort_by == 'narrator' }}>Narrator</option>
+    <option value="series" {{ 'selected' if sort_by == 'series' }}>Series</option>
+    <option value="language" {{ 'selected' if sort_by == 'language' }}>Language</option>
+    <option value="length" {{ 'selected' if sort_by == 'length' }}>Length</option>
+    <option value="rating" {{ 'selected' if sort_by == 'rating' }}>Rating</option>
+    <option value="votes" {{ 'selected' if sort_by == 'votes' }}>Votes</option>
+  </select>
+
+  <!-- Adding another select element for the sort order option -->
+  <label for="sort_order">Sort order:</label>
+  <select name="sort_order" id="sort_order">
+    <option value="asc">Ascending</option>
+    <option value="desc">Descending</option>
+  </select>
+</section>
+
+    <!-- Creating a main element for the content -->
+    <main>
+        <!-- Creating a section element for the data -->
+        <!-- Changing the display attribute to grid -->
+        <!-- Changing the grid-template-columns attribute to repeat with auto-fit and minmax values -->
+        <!-- Removing the grid-auto-flow attribute -->
+        <section style='display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));'>
+            <!-- Looping through the data and creating a card for each item -->
+            {% for item in data %}
+            <!-- Creating a card with an image tag and a div that shows the title, rating and votes -->
+            <!-- The image tag has the src attribute as the image_url and the alt attribute as the title -->
+            <!-- The link tag has the href attribute as the link and the target attribute as "_blank" and wraps around the image tag and the div -->
+            <div class='card'>
+                <a href="https://audible.com{{ item['link'] }}" target="_blank">
+                    <!-- Changing the width and height attributes to 100% -->
+                    <img src="{{ item['image_url'] }}" alt="{{ item['title'] }}" class='card-image' style='width: 100%; height: 70%;'>
+                    <div class='card-content'>
+                        <p class='card-title'>{{ item['title'] }}</p>
+                        <p class='card-rating'>Rating: {{ item['rating'] }}</p>
+                        <p class='card-votes'>Votes: {{ item['votes'] }}</p>
+                    </div>                
+                </a>            
+            </div>        
+            {% endfor %}
+        </section>
+
+        <!-- Creating a section element for the pagination -->
+        <section class='pagination'>
+            <!-- Creating a link for the previous page if the page is not 1 -->
+            {% if page > 1 %}
+            <a href="/?search={{ search|default('', true) }}&author={{ author|default('', true) }}&narrator={{ narrator|default('', true) }}&series={{ series|default('', true) }}&language={{ language|default('', true) }}&min_length={{ min_length|default(0, true) }}&min_rating={{ min_rating|default(0, true) }}&min_votes={{ min_votes|default(0, true) }}&page={{ page-1 }}">Previous</a>
+            {% endif %}
+            <!-- Creating a link for the next page if there are more items in the dataframe -->
+            {% if (page*per_page) < df.shape[0] %}
+            <a href="/?search={{ search if search else '' }}&author={{ author if author else '' }}&narrator={{ narrator if narrator else '' }}&series={{ series if series else '' }}&language={{ language if language else '' }}&min_length={{ min_length if min_length else 0 }}&min_rating={{ min_rating if min_rating else 0 }}&min_votes={{ min_votes if min_votes else 0 }}&page={{ page+1 }}">Next</a>
+            {% endif %}
+            <!-- Creating an input box for the per_page parameter -->
+            <label for="per_page">Results per page:</label>
+            <input type="number" id="per_page" name="per_page" value="{{ per_page }}" onchange="window.location.href='/?search='+document.getElementById('search').value+'&author='+document.getElementById('author').value+'&narrator='+document.getElementById('narrator').value+'&series='+document.getElementById('series').value+'&language='+document.getElementById('language').value+'&min_length='+document.getElementById('min_length').value+'&min_rating='+document.getElementById('min_rating').value+'&min_votes='+document.getElementById('min_votes').value+'&page=1'+'&per_page='+this.value">
+        </section>
+        <!-- Creating a section element for the sort option -->
+  
+    </main>
+
+</body>
+</html>

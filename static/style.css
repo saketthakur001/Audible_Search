@@ -1,0 +1,327 @@
+:root{
+
+/* 3.5 out of 5 */
+--text: #020005;
+--background: #ebdefc;
+--primary-button: #95ec22;
+--secondary-button: #e3d0fb;
+--accent: #95ec22;
+
+
+/*4 out of 5 */
+--text: #063201;
+--background: #edffeb;
+--primary-button: #01128d;
+--secondary-button: #ffffff;
+--accent: #8d0112;
+
+--text: #2a1d09;
+--background: #f6e9d5;
+--primary-button: #77f3e9;
+--secondary-button: #f1dcbb;
+--accent: #da19eb;
+
+/* this is good*/
+--text: #26031e;
+--background: #fbd0f2;
+--primary-button: #f8a0e5;
+--secondary-button: #f9b3ea;
+--accent: #fab8eb;
+
+--text: #07030d;
+--background: #eee6fa;
+--primary-button: #bb2ac6;
+--secondary-button: #f5d1e5;
+--accent: #c62a82;
+
+/* 3.2 out of 5 */
+/* --text: #000000;
+--background: #fce8fd;
+--primary-button: #e8268e;
+--secondary-button: #ffffff;
+--accent: #e8262d; */
+
+
+
+/* 3.5 out of 5 */
+/* --text: #131201;
+--background: #fcf9d4;
+--primary-button: #51f5e7;
+--secondary-button: #fbf5b7;
+--accent: #c30cd4; */
+
+/* 
+--text: #fbede4;
+--background: #1b0c04;
+--primary-button: #e4cd3a;
+--secondary-button: #223107;
+--accent: #6ea216; */
+
+/* 
+--text: #1e280b;
+--background: #f2f9e7;
+--primary-button: #226081;
+--secondary-button: #ffffff;
+--accent: #300d24; */
+
+/* 3.5  */
+/* --text: #0c2711;
+--background: #d8f3dd;
+--primary-button: #3dc298;
+--secondary-button: #c5e5ed;
+--accent: #256674; */
+}
+
+/* Styling the body element to have a black background color and a sans-serif font family */
+body {
+    background-color: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Styling the h1 element to have a center alignment and a yellow color */
+h1 {
+    text-align: center;
+    /* color: rgb(215, 169, 41); */
+    color: orange;
+    /* Adding a text shadow effect */
+    /* text-shadow: 2px 2px 4px black; */
+    /* Adding a bounce animation when only when hovering over the h1 element */
+     animation: bounce 2s infinite;
+    /* Adding a transition effect */
+    transition: transform 0.3s ease-in-out;
+
+}
+
+/* Defining the bounce animation keyframes */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Styling the filter-box class to have a border, a background color, some padding and some margin */
+.filter-box {
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    padding: 5px;
+    margin: 5px;
+}
+
+/* Styling the form element to have a flex display and a column direction */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling the form-group class to have a flex display and a row direction */
+.form-group {
+    display: flex;
+    flex-direction: row;
+}
+
+/* Styling the label and input elements to have some margin and padding */
+label, input {
+    margin: 5px;
+    padding: 5px;
+}
+
+
+/* Creating a flex container for the filters and the search bar */
+.search-and-filters {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+}
+
+/* Adding some margin to the search bar */
+.search-bar {
+    color: var(--text);
+    margin: 5px;
+}
+
+/* Adding some margin to the filters */
+.filters {
+    margin: 5px;
+}
+.filters-Narrator {
+    color: var(--text);
+    margin: 5px;
+}
+
+.form-group {
+    color: var(--text);
+    margin: 5px;
+}
+
+/* Styling the submit button div to have a center alignment and some margin */
+.submit-button {
+    text-align: center;
+    margin: 5px;
+}
+
+/* Styling the section element that contains the sort option */
+.sort-option {
+    /* Aligning the label and the select element horizontally */
+    display: flex;
+    align-items: center;
+    /* Adding some margin and padding for spacing */
+    margin: 10px;
+    padding: 10px;
+    /* Adding a border and a background color for visual effect */
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+  }
+  
+  /* Styling the label element for the sort option */
+  .sort-option label {
+    /* Adding some margin and padding for spacing */
+    margin-right: 10px;
+    padding: 5px;
+    /* Changing the font size and weight for readability */
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Styling the select element for the sort option */
+  .sort-option select {
+    /* Adding some margin and padding for spacing */
+    margin-left: 10px;
+    padding: 5px;
+    /* Changing the font size and color for readability */
+    font-size: 16px;
+    color: #333;
+  }
+  
+
+/* Styling the view option div to have a right alignment and some margin
+.view-option {
+    text-align: right;
+    margin: 10px;
+} */
+
+/* Styling the data div to have a center alignment and some margin */
+.data {
+    text-align: center;
+    margin: 10px;
+}
+
+/* Styling the card class to have a yellow background color, a black border, some padding and some margin */
+.card {
+    width: 200px;
+    height: 300px;
+    margin: 1px;
+    /* background-color: yellow; */
+    background-color: var(--primary-button);
+    /* border: 1px solid black; */
+    padding: 10px;
+    margin: 5px;
+    /* Adding a box shadow effect */
+    box-shadow: 8px 8px 8px  black;
+    /* Adding a transition effect */
+    transition: transform 0.3s ease-in-out;
+    /* border radious  */
+    border-radius: 1%;
+}
+
+/* Removing the underline from the links inside the card-votes class */
+.card a {
+    text-decoration: none;
+}
+
+/* Using media queries to change the card size for smaller screens */
+@media (max-width: 768px) {
+    .card {
+        width: 200px;
+        height: 300px;
+        text-decoration: none;
+
+    }
+}
+
+/* Adding a hover effect to the card class */
+.card:hover {
+    /* Scaling up the card on hover */
+    transform: scale(1.1);
+}
+
+/* Using a linear-gradient function to create a gradient background for the card content class */
+
+.card-content {
+    /* set background colour to red */
+    /* background-color: var(--secondary-button); */
+    /* add a linear gradient from top left to bottom right with two colors */
+    /* add some padding and border radius */
+    /* padding: 10px; */
+    /* border-radius: 10px; */
+/* .card-content { */
+    /* set background colour to red */
+    background-color: var(--secondary-button);
+    /* add a linear gradient from top left to bottom right with two colors */
+    /* background-image: linear-gradient(to bottom right, var(--secondary-button), var(--accent)); */
+    /* set the background size to 50% width and 100% height */
+    background-size: 50% ;
+    /* prevent the background from repeating */
+    background-repeat: no-repeat;
+    /* add some padding and border radius */
+    padding: 10px;
+    /* border-radius: 10px; */
+}
+
+
+
+/*
+
+ */
+/* Styling the card title class to have a bold font weight and a larger font size */
+.card-title {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--text);
+    /* add some margin and transition effect */
+    margin: 5px;
+    transition: transform 0.3s;
+
+}
+
+/* Styling the card rating class to have a smaller font size and a green color */
+.card-rating {
+    font-size: 10px;
+    color: var(--text);
+    /* remove the underline */
+    text-decoration: none;
+    /* add some margin and transition effect */
+    margin: 5px;
+    transition: transform 0.3s;
+
+}
+
+/* Styling the card votes class to have a smaller font size and a gray color */
+.card-votes {
+    text-decoration: none;
+    font-size: 10px;
+    color: var(--text);
+    /* add some margin and transition effect */
+    margin: 5px;
+    transition: transform 0.3s;
+
+}
+
+
+/* Styling the pagination div to have a center alignment and some margin */
+.pagination {
+    text-align: center;
+    margin: 5px;
+}
+
+/* Adding some hover effects for the card title, rating and votes classes */
+.card-title:hover,
+.card-rating:hover,
+.card-votes:hover {
+    /* scale up the element by 10% */
+    transform: scale(1.1);
+}
