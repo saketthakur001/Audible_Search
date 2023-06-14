@@ -32,11 +32,11 @@
                     <!-- Removing the label element and adding a placeholder attribute to the input element -->
                     <input type="text" id="language" name="language" value="{{ language|default('', true) }}" placeholder="Language">
                     <!-- Removing the label element and adding a placeholder attribute to the input element -->
-                    <input type="number" id="min_length" name="min_length" value="{{ min_length|default(0, true) }}" placeholder="Min length">
+                    <input type="number" id="min_length" name="min_length" value="{{ min_length|default('', true) }}" placeholder="Min length">
                     <!-- Removing the label element and adding a placeholder attribute to the input element -->
-                    <input type="number" id="min_rating" name="min_rating" value="{{ min_rating|default(0, true) }}" placeholder="Min rating">
+                    <input type="number" id="min_rating" name="min_rating" value="{{ min_rating|default('', true) }}" placeholder="Min rating", step="0.01">
                     <!-- Removing the label element and adding a placeholder attribute to the input element -->
-                    <input type="number" id="min_votes" name="min_votes" value="{{ min_votes|default(0, true) }}" placeholder="Min votes">
+                    <input type="number" id="min_votes" name="min_votes" value="{{ min_votes|default('', true) }}" placeholder="Min votes">
                 </div>
                 <!-- Creating a div with the class form-group for the submit button -->
                 <div class="form-group">
@@ -122,7 +122,7 @@
             {% endif %}
             <!-- Creating a link for the next page if there are more items in the dataframe -->
             {% if (page*per_page) < df.shape[0] %}
-            <a href="/?search={{ search if search else '' }}&author={{ author if author else '' }}&narrator={{ narrator if narrator else '' }}&series={{ series if series else '' }}&language={{ language if language else '' }}&min_length={{ min_length if min_length else 0 }}&min_rating={{ min_rating if min_rating else 0 }}&min_votes={{ min_votes if min_votes else 0 }}&page={{ page+1 }}">Next</a>
+            <a href="/?search={{ search|default('', true) if search else '' }}&author={{ author|default('', true) if author else '' }}&narrator={{ narrator|default('', true) if narrator else '' }}&series={{ series|default('', true) if series else '' }}&language={{ language|default('', true) if language else '' }}&min_length={{ min_length|default(0, true) if min_length else 0 }}&min_rating={{ min_rating|default(0, true) if min_rating else 0 }}&min_votes={{ min_votes|default(0, true) if min_votes else 0 }}&page={{ page+1 }}">Next</a>
             {% endif %}
             <!-- Creating an input box for the per_page parameter -->
             <label for="per_page">Results per page:</label>
@@ -134,3 +134,4 @@
 
 </body>
 </html>
+

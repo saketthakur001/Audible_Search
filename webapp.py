@@ -169,12 +169,19 @@ def home():
     # Validating the query parameters
     try:
         min_length = int(min_length)
-        min_rating = float(min_rating)
-        min_votes = int(min_votes)
     except ValueError:
         # Handle invalid values here
         # For example, return an error message or use default values
-        return "Invalid query parameters"
+        # return "Invalid query parameters"
+        min_length = 0
+    try:
+        min_rating = float(min_rating)
+    except ValueError:
+        min_rating = 0
+    try:
+        min_votes = int(min_votes)
+    except ValueError:
+        min_votes = 0
 
 
     # Filtering and sorting the dataframe based on the query parameters
@@ -186,7 +193,11 @@ def home():
                                   filtered_df['series'].str.contains(search) |
                                   filtered_df['language'].str.contains(search)]
     if sort_by:
-        filtered_df = filtered_df.sort_values(by=sort_by)
+        # Adding an argument to sort in descending order if the sort_by parameter is 'votes'
+        if sort_by == 'votes':
+            filtered_df = filtered_df.sort_values(by=sort_by, ascending=False)
+        else:
+            filtered_df = filtered_df.sort_values(by=sort_by)
     if author:
         filtered_df = filtered_df[filtered_df['author'] == author]
     if narrator:
@@ -221,6 +232,3 @@ def home():
 # Running the app
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-# ```
