@@ -28,11 +28,11 @@
 --secondary-button: #f9b3ea;
 --accent: #fab8eb;
 
---text: #07030d;
+/* --text: #07030d;
 --background: #eee6fa;
 --primary-button: #bb2ac6;
 --secondary-button: #f5d1e5;
---accent: #c62a82;
+--accent: #c62a82; */
 
 /* 3.2 out of 5 */
 /* --text: #000000;
@@ -86,7 +86,7 @@ h1 {
     /* Adding a text shadow effect */
     /* text-shadow: 2px 2px 4px black; */
     /* Adding a bounce animation when only when hovering over the h1 element */
-     animation: bounce 2s infinite;
+     /* animation: bounce 2s infinite; */
     /* Adding a transition effect */
     transition: transform 0.3s ease-in-out;
 

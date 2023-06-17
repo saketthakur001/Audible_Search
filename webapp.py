@@ -6,7 +6,6 @@ import sqlite3
 
 # Creating a Flask app
 app = Flask(__name__)
-
 database_location = r"C:\Users\saket\Documents\GitHub\Pyhton\web scraping\audible.db"
 database_location = r"audible.db"
 class AudibleDB:
