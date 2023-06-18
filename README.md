@@ -1,5 +1,5 @@
 # Audible Search
-![image](https://github.com/saketthakur001/Audible_Search/assets/58982512/028669f4-0eba-44b0-8f03-32894c0e3279)
+![image](https://github.com/saketthakur001/Audible_Search/assets/58982512/aff0f837-123e-4547-9bd2-caa73ea35134)
 This is a web app that allows you to search for audiobooks on Audible.com. You can filter by genre, rating, length, price, and more. You can also view the details and reviews of each audiobook.
 
 # Why I made this
