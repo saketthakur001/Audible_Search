@@ -191,6 +191,7 @@ def home():
                                   filtered_df['narrator'].str.contains(search) |
                                   filtered_df['series'].str.contains(search) |
                                   filtered_df['language'].str.contains(search)]
+
     if sort_by:
         # Adding an argument to sort in descending order if the sort_by parameter is 'votes'
         if sort_by == 'votes':
@@ -224,9 +225,6 @@ def home():
     # Rendering the template with the data and query parameters
     # Passing the sort_by parameter as well
     return render_template('index.html', data=data, df=df, search=search, author=author, narrator=narrator, series=series, language=language, min_length=min_length, min_rating=min_rating, min_votes=min_votes, page=page, per_page=per_page, sort_by=sort_by)
-
-
-
 
 # Running the app
 if __name__ == '__main__':
